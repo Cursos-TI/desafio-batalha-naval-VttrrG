@@ -1,0 +1,68 @@
+#include <stdio.h>
+
+#define TAMANHO_TABULEIRO 10
+#define TAMANHO_NAVIO 4
+
+// Função para exibir o tabuleiro no console
+void exibirTabuleiro(int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO]) {
+    printf("\nTabuleiro:\n   ");
+    for (int col = 0; col < TAMANHO_TABULEIRO; col++) {
+        printf("%2d ", col);
+    }
+    printf("\n");
+
+    for (int lin = 0; lin < TAMANHO_TABULEIRO; lin++) {
+        printf("%2d ", lin);
+        for (int col = 0; col < TAMANHO_TABULEIRO; col++) {
+            if (tabuleiro[lin][col] == 1)
+                printf(" V ");
+            else if (tabuleiro[lin][col] == 2)
+                printf(" H ");
+            else
+                printf(" ~ ");
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO] = {0};
+
+    // Coordenadas iniciais dos navios (pode alterar para testar)
+    int x_vertical = 2, y_vertical = 3;
+    int x_horizontal = 5, y_horizontal = 1;
+
+    // Verificação de limites para navio vertical
+    if (x_vertical + TAMANHO_NAVIO <= TAMANHO_TABULEIRO) {
+        for (int i = 0; i < TAMANHO_NAVIO; i++) {
+            tabuleiro[x_vertical + i][y_vertical] = 1;
+        }
+    } else {
+        printf("Erro: navio vertical ultrapassa os limites do tabuleiro!\n");
+    }
+
+    // Verificação de limites para navio horizontal
+    if (y_horizontal + TAMANHO_NAVIO <= TAMANHO_TABULEIRO) {
+        for (int i = 0; i < TAMANHO_NAVIO; i++) {
+            tabuleiro[x_horizontal][y_horizontal + i] = 2;
+        }
+    } else {
+        printf("Erro: navio horizontal ultrapassa os limites do tabuleiro!\n");
+    }
+
+    // Exibição das coordenadas
+    printf("Coordenadas do Navio Vertical:\n");
+    for (int i = 0; i < TAMANHO_NAVIO && (x_vertical + i) < TAMANHO_TABULEIRO; i++) {
+        printf("(%d, %d)\n", x_vertical + i, y_vertical);
+    }
+
+    printf("\nCoordenadas do Navio Horizontal:\n");
+    for (int i = 0; i < TAMANHO_NAVIO && (y_horizontal + i) < TAMANHO_TABULEIRO; i++) {
+        printf("(%d, %d)\n", x_horizontal, y_horizontal + i);
+    }
+
+    // Mostrar o tabuleiro com navios
+    exibirTabuleiro(tabuleiro);
+
+    return 0;
+}
